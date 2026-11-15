@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b1520" />
+    <title>Polyship AI</title>
+    <script>
+      // Opens Polyship AI in the visitor's language: the last choice in the language menu, then the browser
+      // languages, then English. Works for any folder (GitHub Pages project site or domain root).
+      (function () {
+        var supported = ['en', 'ko', 'ja', 'zh', 'es', 'fr', 'de', 'pt'];
+        var pick = 'en';
+        try {
+          var saved = window.localStorage.getItem('polyship-ai:locale');
+          if (saved && supported.indexOf(saved) !== -1) {
+            pick = saved;
+          } else {
+            var langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en'];
+            for (var i = 0; i < langs.length; i += 1) {
+              var tag = String(langs[i]).toLowerCase();
+              if (supported.indexOf(tag) !== -1) { pick = tag; break; }
+              var base = tag.split('-')[0];
+              if (supported.indexOf(base) !== -1) { pick = base; break; }
+            }
+          }
+        } catch (error) {
+          // Storage blocked: fall back to English.
+        }
+        var root = window.location.pathname.replace(/index\.html$/, '');
+        if (root.charAt(root.length - 1) !== '/') root += '/';
+        window.location.replace(root + pick + '/' + window.location.search + window.location.hash);
+      })();
+    </script>
+    <style>
+      body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #0b1520; color: #9fb3c1; font: 14px/1.5 system-ui, sans-serif; }
+      a { color: #5eead4; }
+    </style>
+  </head>
+  <body>
+    <noscript><a href="./en/">Polyship AI</a></noscript>
+  </body>
+</html>
